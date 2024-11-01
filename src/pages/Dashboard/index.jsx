@@ -1,37 +1,28 @@
 import React, { useState } from 'react';
-import { 
-  LucidePlus, 
-  LucideCalendarPlus, 
-  LucideList, 
-  LucideHeart,
-} from 'lucide-react';
-import CreateEventModal from './components/CreateEventModal'; // Import CreateEventModal
+import { LucidePlus, LucideList, LucideHeart } from 'lucide-react';
+import CreateEventModal from './components/CreateEventModal';
 import { useNavigate } from 'react-router-dom';
+import EntryForm from './components/EntryForm';
+import EntryModal from './components/EntryModal';
 
-const Dashboard = () => {
-const navigate = useNavigate();
-
+const Dashboard = ({ setView, recentEntries, onAddNewEntry }) => {
+  const navigate = useNavigate();
   const user = {
     name: "John Doe",
     profilePic: "/api/placeholder/150/150"
   };
 
-  const recentEntries = [
-    { id: 1, title: "Weekend Trip", date: "2024-10-25", isFavorite: true },
-    { id: 2, title: "Family Dinner", date: "2024-10-24", isFavorite: false },
-    { id: 3, title: "Beach Day", date: "2024-10-23", isFavorite: true }
-  ];
-
   const favoriteEntries = recentEntries.filter(entry => entry.isFavorite);
-
   const [events, setEvents] = useState([]);
   const handleSaveEvent = (newEvent) => {
     setEvents([...events, newEvent]);
   };
 
+  // State to manage EntryForm modal visibility
+  const [isEntryFormOpen, setEntryFormOpen] = useState(false);
+
   return (
     <div className="flex h-screen bg-gray-100">
-  
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto p-8">
         {/* Welcome Message */}
@@ -42,18 +33,21 @@ const navigate = useNavigate();
 
         {/* Quick Access Buttons */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <button className="flex items-center justify-center p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+          <button
+            onClick={() => setEntryFormOpen(true)} // Open the EntryForm modal
+            className="flex items-center p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
             <LucidePlus className="mr-2" />
             Add New Entry
           </button>
-          <CreateEventModal onSave={handleSaveEvent} /> {/* Trigger Modal */}
+          <CreateEventModal onSave={handleSaveEvent} />
           <button
-          className="flex items-center justify-center p-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
-          onClick={() => navigate('/entries')} // Navigates to All Entries page
-        >
-          <LucideList className="mr-2" />
-          View All Entries
-        </button>
+            className="flex items-center justify-center p-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+            onClick={() => setView('entries')}
+          >
+            <LucideList className="mr-2" />
+            View All Entries
+          </button>
         </div>
 
         {/* Recent and Favorite Entries */}
@@ -113,6 +107,11 @@ const navigate = useNavigate();
           )}
         </div>
       </div>
+
+      {/* Modal for Entry Form */}
+      <EntryModal isOpen={isEntryFormOpen} onClose={() => setEntryFormOpen(false)}>
+        <EntryForm />
+      </EntryModal>
     </div>
   );
 };

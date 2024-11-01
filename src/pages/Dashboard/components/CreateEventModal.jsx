@@ -1,3 +1,4 @@
+// CreateEventModal.js
 import React, { useState } from 'react';
 import EventForm from './EventForm';
 
@@ -14,9 +15,9 @@ const CreateEventModal = ({ onSave }) => {
       </button>
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-8 rounded">
+          <div className="bg-white p-8 rounded shadow-lg max-w-md w-full"> {/* Set max width here */}
             <button onClick={() => setIsOpen(false)} className="text-gray-500 float-right">
-              X
+              &times; {/* Close Icon */}
             </button>
             <EventForm onSave={(newEvent) => {
               onSave(newEvent);

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Sidebar from './Dashboard/components/Sidebar';
 import Dashboard from './Dashboard';
 import Journal from './Dashboard/components/Journal';
-
+import AllEntries from './Dashboard/components/AllEntries';
+import RootLayout from '../layout/RootLayout';
+import Footer from '../components/Footer';
 
 const Overview = () => {
   const [view, setView] = useState('dashboard');
-  
+
   const recentEntries = [
     { id: 1, title: "Weekend Trip", date: "2024-10-25", isFavorite: true },
     { id: 2, title: "Family Dinner", date: "2024-10-24", isFavorite: false },
@@ -20,14 +22,18 @@ const Overview = () => {
   ];
 
   return (
+    <>
+    
     <div className="flex h-screen bg-gray-100">
       <Sidebar setView={setView} />
       <div className="flex-1 overflow-y-auto">
-        {view === 'dashboard' && <Dashboard recentEntries={recentEntries} />}
+        {view === 'dashboard' && <Dashboard setView={setView} recentEntries={recentEntries} />}
         {view === 'journal' && <Journal entries={entries} />}
-        {/* Add other views like profile, settings, and home as needed */}
+        {view === 'entries' && <AllEntries entries={entries} />}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
