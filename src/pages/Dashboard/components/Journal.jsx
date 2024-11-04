@@ -1,18 +1,17 @@
-// Journal.js
 import React from 'react';
 import { LucidePlus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Journal = ({ entries }) => (
-  <div className="p-8">
-    <h1 className="text-3xl font-bold mb-8">Journal Entries</h1>
+const Journal = ({ entries, isDarkTheme }) => (
+  <div className={`p-8 ${isDarkTheme ? 'bg-gray-900' : 'bg-gray-100'}`}>
+    <h1 className={`text-3xl font-bold mb-8 ${isDarkTheme ? 'text-white' : 'text-black'}`}>Journal Entries</h1>
     <Link to="/entryform">
-    <button className="mb-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
-      <LucidePlus className="mr-2" /> Add Entry
-    </button>
+      <button className="mb-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+        <LucidePlus className="mr-2" /> Add Entry
+      </button>
     </Link>
-    <table className="w-full bg-white rounded-lg shadow-md">
-      <thead className="bg-gray-100">
+    <table className={`w-full rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-800' : 'bg-white'}`}>
+      <thead className={isDarkTheme ? 'bg-gray-700' : 'bg-gray-100'}>
         <tr>
           <th className="p-4 text-left">Image</th>
           <th className="p-4 text-left">Title</th>

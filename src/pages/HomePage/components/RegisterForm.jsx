@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-import { LucideEye, LucideEyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom';
+import RootLayout from '../../../layout/RootLayout';
 
 const RegisterForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false)
-
-  const navigate = useNavigate()
+  const handleTogglePassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (formData.password !== formData.confirmpassword) {
+    const formData = new FormData(event.target);
+    const firstname = formData.get("firstname");
+    const lastname = formData.get("lastname");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmpassword = formData.get("confirmpassword");
+
+    if (password !== confirmpassword) {
       Swal.fire({
         icon: 'error',
         title: 'Password Mismatch',
@@ -21,176 +30,139 @@ const RegisterForm = () => {
     }
 
     try {
-      setLoading(true)
-      const formData = new FormData(event.target);
-      const firstname = formData.get("firstname");
-      const lastname = formData.get("lastname");
-      const email = formData.get("email");
-      const password = formData.get("password");
-      const confirmpassword = formData.get("confirmpassword");
-
-      const payload = { firstname: firstname, lastname: lastname, email: email, password: password }
-      const response = await apiSignup(payload);
+      setLoading(true);
+      const payload = { firstname, lastname, email, password };
+      const response = await apiSignup(payload); // Ensure apiSignup is defined
       console.log(response.data);
-
-      // Show a success notification
       Swal.fire({
         icon: 'success',
         title: 'Registration Successful',
         text: 'You have successfully registered!',
       });
-
-      navigate("/login")
-
+      navigate("/login");
     } catch (error) {
-      console.log(error);
-
-      // Show an error notification
       Swal.fire({
         icon: 'error',
         title: 'Registration Failed',
         text: 'There was an error during registration. Please try again.',
       });
-
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
-    <div className="relative min-h-screen">
-      {/* Background image */}
-      {/* <div
-        className="absolute inset-0 bg-cover bg-center z-0"
-        style={{
-          backgroundImage: "url('./src/assets/images/frame2.jpg')",
-        }}> */}
+    <RootLayout>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-28">
 
-      {/* Form container */}
-      <div className="relative z-10 flex justify-center items-center h-screen">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-inherit bg-opacity-90 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
-          {/* Form fields */}
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="firstname">
-              First Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="firstname"
-              name="firstname"
-              type="text"
-              placeholder="Enter first name. eg: John"
-              required
-            />
-          </div>
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+        <div>
+          <h2 className="text-center text-3xl font-bold text-gray-900">Sign Up</h2>
+        </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="lastname">
-              Last Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="lastname"
-              name="lastname"
-              type="text"
-              placeholder="Enter last name. eg: Doe"
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Enter email. eg: Johnjohndoe@example.com"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
-              Password
-            </label>
-            <div className="relative">
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div className="space-y-4">
+            {/* First Name */}
+            <div>
+              <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">First Name</label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Enter password. eg: Johnj***@d**"
+                type="text"
+                id="firstname"
+                name="firstname"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter first name"
                 required
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
-                {showPassword ? (
-                  <LucideEyeOff
-                    size={20}
-                    className="text-gray-400 hover:text-gray-600"
-                    onClick={handleTogglePassword}
-                  />
-                ) : (
-                  <LucideEye
-                    size={20}
-                    className="text-gray-400 hover:text-gray-600"
-                    onClick={handleTogglePassword}
-                  />
-                )}
+            </div>
+
+            {/* Last Name */}
+            <div>
+              <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">Last Name</label>
+              <input
+                type="text"
+                id="lastname"
+                name="lastname"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter last name"
+                required
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+              <div className="mt-1 relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={handleTogglePassword}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label htmlFor="confirmpassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+              <div className="mt-1 relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="confirmpassword"
+                  name="confirmpassword"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Confirm your password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={handleTogglePassword}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
             </div>
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="confirm-password">
-              Confirm Password
-            </label>
-            <div className="relative">
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="confirmpassword"
-                name="confirmpassword"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Confirm your password"
-                required
-              />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
-                {showPassword ? (
-                  <LucideEyeOff
-                    size={20}
-                    className="text-gray-400 hover:text-gray-600"
-                    onClick={handleTogglePassword}
-                  />
-                ) : (
-                  <LucideEye
-                    size={20}
-                    className="text-gray-400 hover:text-gray-600"
-                    onClick={handleTogglePassword}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-center">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Sign Up
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            {loading ? 'Signing up...' : 'Sign Up'}
+          </button>
         </form>
+
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            Already have an account?{' '}
+            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">Login</Link>
+          </p>
+        </div>
       </div>
-      {/* </div> */}
     </div>
+    </RootLayout>
   );
 };
 

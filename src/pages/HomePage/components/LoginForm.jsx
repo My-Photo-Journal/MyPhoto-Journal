@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import RootLayout from '../../../layout/RootLayout';
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +22,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <RootLayout>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-20 pb-0">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
         <div>
           <h2 className="text-center text-3xl font-bold text-gray-900">Login</h2>
@@ -97,6 +99,7 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
+    </RootLayout>
   );
 };
 

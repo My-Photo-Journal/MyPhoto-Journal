@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import EntryForm from './components/EntryForm';
 import EntryModal from './components/EntryModal';
 
-const Dashboard = ({ setView, recentEntries, onAddNewEntry }) => {
+const Dashboard = ({ setView, recentEntries, isDarkTheme, setIsDarkTheme }) => {
   const navigate = useNavigate();
   const user = {
     name: "John Doe",
@@ -18,11 +18,10 @@ const Dashboard = ({ setView, recentEntries, onAddNewEntry }) => {
     setEvents([...events, newEvent]);
   };
 
-  // State to manage EntryForm modal visibility
   const [isEntryFormOpen, setEntryFormOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className={`flex h-screen ${isDarkTheme ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto p-8">
         {/* Welcome Message */}
@@ -53,11 +52,11 @@ const Dashboard = ({ setView, recentEntries, onAddNewEntry }) => {
         {/* Recent and Favorite Entries */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Recent Entries */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className={`bg-white p-6 rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-700' : 'bg-white'}`}>
             <h2 className="text-xl font-semibold mb-4">Recent Entries</h2>
             <div className="space-y-4">
               {recentEntries.map(entry => (
-                <div key={entry.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={entry.id} className={`flex items-center justify-between p-3 rounded-lg ${isDarkTheme ? 'bg-gray-600' : 'bg-gray-50'}`}>
                   <div>
                     <h3 className="font-medium">{entry.title}</h3>
                     <p className="text-sm text-gray-500">{entry.date}</p>
@@ -71,11 +70,11 @@ const Dashboard = ({ setView, recentEntries, onAddNewEntry }) => {
           </div>
 
           {/* Favorite Entries */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className={`bg-white p-6 rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-700' : 'bg-white'}`}>
             <h2 className="text-xl font-semibold mb-4">Favorite Entries</h2>
             <div className="space-y-4">
               {favoriteEntries.map(entry => (
-                <div key={entry.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={entry.id} className={`flex items-center justify-between p-3 rounded-lg ${isDarkTheme ? 'bg-gray-600' : 'bg-gray-50'}`}>
                   <div>
                     <h3 className="font-medium">{entry.title}</h3>
                     <p className="text-sm text-gray-500">{entry.date}</p>

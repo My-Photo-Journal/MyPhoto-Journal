@@ -1,7 +1,6 @@
-// AllEntries.js
 import React, { useState } from 'react';
 
-const AllEntries = () => {
+const AllEntries = ({ isDarkTheme }) => {
   const [entries, setEntries] = useState([
     { id: 1, title: "Weekend Trip", date: "2024-10-25", location: "Paris", category: "Vacation" },
     { id: 2, title: "Family Dinner", date: "2024-10-24", location: "Home", category: "Family" },
@@ -10,9 +9,9 @@ const AllEntries = () => {
   ]);
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6">All Entries</h2>
-      <div className="bg-white shadow-md rounded-lg p-6">
+    <div className={`p-8 min-h-screen ${isDarkTheme ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      <h2 className="text-3xl font-bold mb-6 text-gray-800">All Entries</h2>
+      <div className={`shadow-md rounded-lg p-6 ${isDarkTheme ? 'bg-gray-800' : 'bg-white'}`}>
         <table className="w-full">
           <thead>
             <tr>

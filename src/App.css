@@ -4,4 +4,20 @@
     gap: 10px;
   }
   
- 
+ /* styles.css */
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.light-theme {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-theme {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Additional styles for other components can go here */
