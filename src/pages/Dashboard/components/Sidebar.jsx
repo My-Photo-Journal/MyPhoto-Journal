@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { LucideList, LucideCalendarPlus, LucideLogOut, LucideMoon, LucideSun } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from '/src/assets/images/logo-trans.png'; // Ensure to replace with the actual path to your logo
+import logo from '/src/assets/images/logo-trans.png'; 
 
 const Sidebar = ({ setView, isDarkTheme, setIsDarkTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ const Sidebar = ({ setView, isDarkTheme, setIsDarkTheme }) => {
 
   return (
     <div 
-      className={`bg-white shadow-md p-2 transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} ${isDarkTheme ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`} 
+      className={`shadow-md p-2 transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} ${isDarkTheme ? 'bg-gray-800 text-white border-r border-white' : 'bg-white text-gray-800'}`} 
       onMouseEnter={handleMouseEnter} 
       onMouseLeave={handleMouseLeave}
     >
@@ -32,41 +32,35 @@ const Sidebar = ({ setView, isDarkTheme, setIsDarkTheme }) => {
       <nav className="space-y-2">
         <button 
           onClick={() => setView('dashboard')} 
-          className={`w-full flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition duration-200 transform ${isOpen ? 'hover:scale-105' : 'justify-center'}`}
+          className={`w-full flex items-center p-3 transition duration-200 transform ${isDarkTheme ? 'text-white hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'} rounded-lg`}
         >
-          <LucideList className="mr-3" /> 
+          <LucideList className={`mr-3 ${isDarkTheme ? 'text-white' : 'text-gray-700'} ${isOpen ? 'w-5 h-5' : 'w-6 h-6'}`} /> 
           {isOpen && <span>Dashboard</span>}
         </button>
 
         <button 
           onClick={() => setView('journal')} 
-          className={`w-full flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition duration-200 transform ${isOpen ? 'hover:scale-105' : 'justify-center'}`}
+          className={`w-full flex items-center p-3 transition duration-200 transform ${isDarkTheme ? 'text-white hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'} rounded-lg`}
         >
-          <LucideCalendarPlus className="mr-3" /> 
+          <LucideCalendarPlus className={`mr-3 ${isDarkTheme ? 'text-white' : 'text-gray-700'} ${isOpen ? 'w-5 h-5' : 'w-6 h-6'}`} /> 
           {isOpen && <span>Journal</span>}
         </button>
 
         <button 
           onClick={() => setView('logout')} 
-          className={`w-full flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition duration-200 transform ${isOpen ? 'hover:scale-105' : 'justify-center'}`}
+          className={`w-full flex items-center p-3 transition duration-200 transform ${isDarkTheme ? 'text-white hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'} rounded-lg`}
         >
-          <LucideLogOut className="mr-3" /> 
+          <LucideLogOut className={`mr-3 ${isDarkTheme ? 'text-white' : 'text-gray-700'} ${isOpen ? 'w-5 h-5' : 'w-6 h-6'}`} /> 
           {isOpen && <span>Logout</span>}
         </button>
         
-        <div className="flex items-center mt-4">
-          <input 
-            type="checkbox" 
-            id="themeToggle" 
-            checked={isDarkTheme} 
-            onChange={handleThemeToggle} 
-            className="mr-2"
-          />
-          <label htmlFor="themeToggle" className="flex items-center">
-            {isDarkTheme ? <LucideSun className="text-yellow-500" /> : <LucideMoon className="text-gray-800" />}
-            <span className="ml-2">{isDarkTheme ? 'Light Theme' : 'Dark Theme'}</span>
-          </label>
-        </div>
+        <button 
+          onClick={handleThemeToggle} 
+          className={`w-full flex items-center p-3 transition duration-200 transform ${isDarkTheme ? 'text-white hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'} rounded-lg`}
+        >
+          {isDarkTheme ? <LucideSun className="mr-3 text-yellow-500" /> : <LucideMoon className="mr-3 text-gray-800" />}
+          {isOpen && <span>{isDarkTheme ? 'Light Theme' : 'Dark Theme'}</span>}
+        </button>
       </nav>
     </div>
   );

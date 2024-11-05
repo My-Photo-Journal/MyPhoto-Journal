@@ -1,5 +1,5 @@
-// EntryForm.js
 import React, { useState } from 'react';
+import FileInput from './FileInput'; // Adjust the import path as necessary
 
 const EntryForm = () => {
   const [title, setTitle] = useState('');
@@ -8,13 +8,10 @@ const EntryForm = () => {
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
   const [photos, setPhotos] = useState([]);
-  const [photoURLs, setPhotoURLs] = useState([]);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setPhotos(files);
-    const fileURLs = files.map((file) => URL.createObjectURL(file));
-    setPhotoURLs(fileURLs);
   };
 
   const handleSubmit = (e) => {
@@ -27,7 +24,7 @@ const EntryForm = () => {
       date,
       photos,
     };
-    // Send entryData to the backend or process it as needed
+    // Process entryData as needed
     console.log('Entry Submitted:', entryData);
   };
 
@@ -82,19 +79,7 @@ const EntryForm = () => {
       />
 
       {/* Image Upload */}
-      <input
-        type="file"
-        multiple
-        onChange={handleFileChange}
-        className="w-full p-2 border border-gray-300 rounded"
-      />
-
-      {/* Photo Preview Grid */}
-      <div className="photo-grid grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
-        {photoURLs.map((photoURL, index) => (
-          <img key={index} src={photoURL} alt={`Preview ${index}`} className="w-full h-full object-cover rounded-lg" />
-        ))}
-      </div>
+      <FileInput onChange={handleFileChange} multiple={true} />
 
       {/* Submit Button */}
       <button

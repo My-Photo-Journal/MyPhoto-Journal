@@ -1,12 +1,17 @@
-// EventForm.js
 import React, { useState } from 'react';
+import FileInput from './FileInput';
 
 const EventForm = ({ onSave }) => {
   const [eventName, setEventName] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [eventPhoto, setEventPhoto] = useState(null);
+  const [eventPhotos, setEventPhotos] = useState([]);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setEventPhotos(files);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,10 +21,16 @@ const EventForm = ({ onSave }) => {
       eventDescription,
       startDate,
       endDate,
-      eventPhoto,
-      entries: []
+      eventPhotos,
+      entries: [] // Initialize with an empty array for entries
     };
     onSave(newEvent);
+    // Reset the form fields after submission
+    setEventName('');
+    setEventDescription('');
+    setStartDate('');
+    setEndDate('');
+    setEventPhotos([]);
   };
 
   return (
@@ -54,11 +65,7 @@ const EventForm = ({ onSave }) => {
         className="w-full p-2 mb-4 border rounded"
         required
       />
-      <input
-        type="file"
-        onChange={(e) => setEventPhoto(e.target.files[0])}
-        className="w-full p-2 mb-4 border rounded"
-      />
+      <FileInput onChange={handleFileChange} multiple={true} />
       <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
         Save Event
       </button>
