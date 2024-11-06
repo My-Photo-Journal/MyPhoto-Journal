@@ -4,7 +4,7 @@ import React from 'react';
 const testimonialsData = [
   {
     name: 'John Doe',
-    testimonial: 'MyPhoto Journal has transformed how I capture and share my memories. I love the collage feature!',
+    testimonial: 'Snap Diary has transformed how I capture and share my memories. I love the collage feature!',
   },
   {
     name: 'Jane Smith',
@@ -18,7 +18,7 @@ const testimonialsData = [
 
 const Testimonials = () => {
   return (
-    <div className="py-10 bg-gray-50">
+    <div className="py-10 bg-gray-50" >
       <h2 className="text-3xl font-bold text-center mb-8">What Our Users Say</h2>
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {testimonialsData.map((testimonial, index) => (

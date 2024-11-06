@@ -4,27 +4,32 @@ const featuresData = [
   {
     title: 'Personalized Dashboard',
     description: 'Easily access your journal entries and events from a single dashboard.',
-    icon: '📊', // Replace with actual icon or SVG
+    icon: '📊',
   },
   {
     title: 'Collage Layout',
     description: 'Create beautiful entries with multiple images arranged in a grid.',
-    icon: '🖼️', // Replace with actual icon or SVG
+    icon: '🖼️',
   },
   {
     title: 'Event Organization',
     description: 'Group your entries into themed events for easy navigation.',
-    icon: '📅', // Replace with actual icon or SVG
+    icon: '📅',
   },
   {
     title: 'Favorites & Privacy',
     description: 'Mark entries as favorites and control their visibility with privacy settings.',
-    icon: '⭐', // Replace with actual icon or SVG
+    icon: '⭐',
   },
   {
     title: 'Search & Filter',
     description: 'Quickly find entries by keyword or date with our search tool.',
-    icon: '🔍', // Replace with actual icon or SVG
+    icon: '🔍',
+  },
+  {
+    title: 'Unlimited Entries',
+    description: 'Unlike other journaling platforms, you can write as much and as often as you like, all for free.',
+    icon: '🆓',
   },
 ];
 
@@ -35,12 +40,14 @@ const Features = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {featuresData.map((feature, index) => (
           <div
-            className="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105"
+            className="bg-white rounded-lg shadow-md p-6 relative overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg"
             key={index}
           >
+            {/* Reflection effect */}
             <div className="text-4xl mb-4 text-center">{feature.icon}</div>
             <h3 className="text-xl font-semibold text-center">{feature.title}</h3>
             <p className="text-gray-700 text-center">{feature.description}</p>
+            <div className="absolute bottom-0 left-0 w-full h-full bg-white opacity-20 transform scale-y-[-1] translate-y-full transition-opacity duration-300 ease-in-out pointer-events-none hover:opacity-50"></div>
           </div>
         ))}
       </div>

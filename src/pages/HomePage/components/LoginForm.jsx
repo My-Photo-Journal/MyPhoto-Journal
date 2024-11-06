@@ -26,7 +26,7 @@ const LoginForm = () => {
       <div
         className="min-h-screen flex items-center justify-center pt-20 pb-0 px-4 sm:px-6 lg:px-8"
         style={{
-          backgroundImage: "url('./src/assets/images/bg.jpg')",
+          backgroundImage: "url('./src/assets/images/bg6.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
