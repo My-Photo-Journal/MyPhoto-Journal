@@ -4,15 +4,15 @@ import Testimonials from './components/Testimonials';
 import RootLayout from '../../layout/RootLayout';
 import { Link } from 'react-router-dom';
 
-const HomePage = () => {
+const HomePage = ({ isDarkTheme }) => {
   return (
     <>
       <RootLayout>
-        <div className="pt-64">
+        <div className="pt-60">
           {/* Video Background */}
           <video
             className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-            src="/public/videos/hp-vid.mp4"
+            src="./src/assets/videos/hp-vid2.mp4"
             autoPlay
             loop
             muted

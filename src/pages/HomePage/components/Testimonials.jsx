@@ -1,4 +1,3 @@
-// Testimonials.js
 import React from 'react';
 
 const testimonialsData = [
@@ -16,17 +15,17 @@ const testimonialsData = [
   },
 ];
 
-const Testimonials = () => {
+const Testimonials = ({ isDarkTheme }) => {
   return (
-    <div className="py-10 bg-gray-50" >
-      <h2 className="text-3xl font-bold text-center mb-8">What Our Users Say</h2>
+    <div className={`py-10 ${isDarkTheme ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <h2 className={`text-3xl font-bold text-center mb-8 ${isDarkTheme ? 'text-white' : 'text-gray-800'}`}>What Our Users Say</h2>
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {testimonialsData.map((testimonial, index) => (
           <div
-            className="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105"
+            className={`rounded-lg shadow-md p-6 transition-transform transform hover:scale-105 ${isDarkTheme ? 'bg-gray-700 text-white' : 'bg-white text-gray-800'}`}
             key={index}
           >
-            <p className="text-gray-600 italic">"{testimonial.testimonial}"</p>
+            <p className="italic">"{testimonial.testimonial}"</p>
             <p className="mt-4 font-semibold text-right">- {testimonial.name}</p>
           </div>
         ))}

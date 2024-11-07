@@ -39,7 +39,8 @@ const Dashboard = ({ setView, recentEntries, isDarkTheme, setIsDarkTheme }) => {
             <LucidePlus className="mr-2" />
             Add New Entry
           </button>
-          <CreateEventModal onSave={handleSaveEvent} />
+          <CreateEventModal onSave={handleSaveEvent} isDarkTheme={isDarkTheme} />
+
           <button
             className="flex items-center justify-center p-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
             onClick={() => setView('entries')}
@@ -52,14 +53,17 @@ const Dashboard = ({ setView, recentEntries, isDarkTheme, setIsDarkTheme }) => {
         {/* Recent and Favorite Entries */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Recent Entries */}
-          <div className={`bg-white p-6 rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-700' : 'bg-white'}`}>
+          <div className={`p-6 rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
             <h2 className="text-xl font-semibold mb-4">Recent Entries</h2>
             <div className="space-y-4">
               {recentEntries.map(entry => (
-                <div key={entry.id} className={`flex items-center justify-between p-3 rounded-lg ${isDarkTheme ? 'bg-gray-600' : 'bg-gray-50'}`}>
+                <div
+                  key={entry.id}
+                  className={`flex items-center justify-between p-3 rounded-lg ${isDarkTheme ? 'bg-gray-600 text-gray-300' : 'bg-gray-50 text-gray-700'}`}
+                >
                   <div>
                     <h3 className="font-medium">{entry.title}</h3>
-                    <p className="text-sm text-gray-500">{entry.date}</p>
+                    <p className={`${isDarkTheme ? 'text-gray-400' : 'text-gray-500'} text-sm`}>{entry.date}</p>
                   </div>
                   {entry.isFavorite && (
                     <LucideHeart className="text-red-500" size={20} />
@@ -70,14 +74,17 @@ const Dashboard = ({ setView, recentEntries, isDarkTheme, setIsDarkTheme }) => {
           </div>
 
           {/* Favorite Entries */}
-          <div className={`bg-white p-6 rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-700' : 'bg-white'}`}>
+          <div className={`p-6 rounded-lg shadow-md ${isDarkTheme ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
             <h2 className="text-xl font-semibold mb-4">Favorite Entries</h2>
             <div className="space-y-4">
               {favoriteEntries.map(entry => (
-                <div key={entry.id} className={`flex items-center justify-between p-3 rounded-lg ${isDarkTheme ? 'bg-gray-600' : 'bg-gray-50'}`}>
+                <div
+                  key={entry.id}
+                  className={`flex items-center justify-between p-3 rounded-lg ${isDarkTheme ? 'bg-gray-600 text-gray-300' : 'bg-gray-50 text-gray-700'}`}
+                >
                   <div>
                     <h3 className="font-medium">{entry.title}</h3>
-                    <p className="text-sm text-gray-500">{entry.date}</p>
+                    <p className={`${isDarkTheme ? 'text-gray-400' : 'text-gray-500'} text-sm`}>{entry.date}</p>
                   </div>
                   <LucideHeart className="text-red-500" size={20} />
                 </div>
@@ -108,8 +115,8 @@ const Dashboard = ({ setView, recentEntries, isDarkTheme, setIsDarkTheme }) => {
       </div>
 
       {/* Modal for Entry Form */}
-      <EntryModal isOpen={isEntryFormOpen} onClose={() => setEntryFormOpen(false)}>
-        <EntryForm />
+      <EntryModal isOpen={isEntryFormOpen} onClose={() => setEntryFormOpen(false)} isDarkTheme={isDarkTheme}>
+        <EntryForm isDarkTheme={isDarkTheme} />
       </EntryModal>
     </div>
   );

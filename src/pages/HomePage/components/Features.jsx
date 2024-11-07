@@ -33,21 +33,20 @@ const featuresData = [
   },
 ];
 
-const Features = () => {
+const Features = ({ isDarkTheme }) => {
   return (
-    <div className="py-10 bg-gray-100">
-      <h2 className="text-3xl font-bold text-center mb-8">Key Features</h2>
+    <div className={`py-10 ${isDarkTheme ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      <h2 className={`text-3xl font-bold text-center mb-8 ${isDarkTheme ? 'text-white' : 'text-gray-800'}`}>Key Features</h2>
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {featuresData.map((feature, index) => (
           <div
-            className="bg-white rounded-lg shadow-md p-6 relative overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg"
+            className={`rounded-lg shadow-md p-6 relative overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg ${isDarkTheme ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}
             key={index}
           >
-            {/* Reflection effect */}
             <div className="text-4xl mb-4 text-center">{feature.icon}</div>
             <h3 className="text-xl font-semibold text-center">{feature.title}</h3>
-            <p className="text-gray-700 text-center">{feature.description}</p>
-            <div className="absolute bottom-0 left-0 w-full h-full bg-white opacity-20 transform scale-y-[-1] translate-y-full transition-opacity duration-300 ease-in-out pointer-events-none hover:opacity-50"></div>
+            <p className="text-center">{feature.description}</p>
+            <div className={`absolute bottom-0 left-0 w-full h-full ${isDarkTheme ? 'bg-gray-800' : 'bg-white'} opacity-20 transform scale-y-[-1] translate-y-full transition-opacity duration-300 ease-in-out pointer-events-none hover:opacity-50`}></div>
           </div>
         ))}
       </div>

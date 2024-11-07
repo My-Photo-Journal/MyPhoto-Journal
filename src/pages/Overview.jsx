@@ -35,8 +35,8 @@ const Overview = () => {
       <Sidebar setView={setView} isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
       <div className="flex-1 overflow-y-auto">
         {view === 'dashboard' && <Dashboard setView={setView} recentEntries={recentEntries} isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />}
-        {view === 'journal' && <Journal entries={entries} isDarkTheme={isDarkTheme} />} {/* Pass theme state here */}
-        {view === 'entries' && <AllEntries isDarkTheme={isDarkTheme} />} {/* Pass theme state here */}
+        {view === 'journal' && <Journal entries={entries} isDarkTheme={isDarkTheme} />} 
+        {view === 'entries' && <AllEntries isDarkTheme={isDarkTheme} />} 
       </div>
     </div>
   );

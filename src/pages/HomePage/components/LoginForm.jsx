@@ -26,7 +26,7 @@ const LoginForm = () => {
       <div
         className="min-h-screen flex items-center justify-center pt-20 pb-0 px-4 sm:px-6 lg:px-8"
         style={{
-          backgroundImage: "url('./src/assets/images/bg6.jpg')",
+          backgroundImage: "url('/public/images/bg6.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -45,7 +45,7 @@ const LoginForm = () => {
                   type="email"
                   id="email"
                   name="email"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -60,7 +60,7 @@ const LoginForm = () => {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleChange}
@@ -82,18 +82,18 @@ const LoginForm = () => {
                 <input
                   type="checkbox"
                   id="remember"
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500"
                 />
                 <label htmlFor="remember" className="ml-2 text-sm text-gray-700">Remember me</label>
               </div>
               <div>
-                <a href="#" className="text-sm text-blue-600 hover:text-blue-500">Forgot password?</a>
+                <a href="#" className="text-sm text-orange-600 hover:text-orange-500">Forgot password?</a>
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
             >
               Sign in
             </button>
@@ -102,7 +102,7 @@ const LoginForm = () => {
           <div className="text-center mt-4">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">Sign up</Link>
+              <Link to="/signup" className="font-medium text-orange-600 hover:text-orange-500">Sign up</Link>
             </p>
           </div>
         </div>

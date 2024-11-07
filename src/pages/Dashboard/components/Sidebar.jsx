@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { LucideList, LucideCalendarPlus, LucideLogOut, LucideMoon, LucideSun } from 'lucide-react';
+import { LucideList, LucideCalendarPlus, LucideLogOut, LucideMoon, LucideSun, Camera } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from '/src/assets/images/logo-trans.png'; 
 
 const Sidebar = ({ setView, isDarkTheme, setIsDarkTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,10 +23,17 @@ const Sidebar = ({ setView, isDarkTheme, setIsDarkTheme }) => {
       onMouseEnter={handleMouseEnter} 
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex flex-col items-center mb-6">
-        <Link to="/" onClick={() => setView('home')}>
-          <img src={logo} alt="Logo" className={`h-12 mb-2 transition-transform duration-300 ${isOpen ? 'scale-100' : 'scale-75'}`} />
-        </Link>
+      <div className="flex items-center p-2">
+        <Camera className={`h-8 w-8 ${isDarkTheme ? 'text-yellow-500' : 'text-orange-500'}`} />
+        {isOpen && (
+          <Link 
+            to="/" 
+            className={`font-bold text-xl ${isDarkTheme ? 'text-white' : 'text-gray-800'}`} 
+            style={{ fontFamily: "'Dancing Script', cursive" }}
+          >
+            Snap Diary
+          </Link>
+        )}
       </div>
       <nav className="space-y-2">
         <button 
