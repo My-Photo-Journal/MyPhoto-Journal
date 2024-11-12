@@ -11,12 +11,15 @@ const HomePage = ({ isDarkTheme }) => {
         <div className="pt-60">
           {/* Video Background */}
           <video
-            className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-            src="./src/assets/videos/hp-vid2.mp4"
+            className="absolute top-0 left-0 w-full h-full object-cover -z-20"
+            src="public/videos/hp-vid2.mp4"
             autoPlay
             loop
             muted
           ></video>
+
+          {/* Overlay */}
+          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 -z-10"></div>
 
           {/* Hero Section */}
           <section className="relative text-white text-center py-20 px-8" style={{ fontFamily: "'Dancing Script', cursive" }}>

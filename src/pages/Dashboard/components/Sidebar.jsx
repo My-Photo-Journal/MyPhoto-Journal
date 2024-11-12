@@ -19,7 +19,7 @@ const Sidebar = ({ setView, isDarkTheme, setIsDarkTheme }) => {
 
   return (
     <div 
-      className={`shadow-md p-2 transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} ${isDarkTheme ? 'bg-gray-800 text-white border-r border-white' : 'bg-white text-gray-800'}`} 
+      className={`shadow-md p-2 transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} ${isDarkTheme ? 'bg-gray-800 text-white border-r border-white' : 'bg-gradient-to-r from-pink-200 via-orange-200 to-yellow-200 text-gray-800'}`} 
       onMouseEnter={handleMouseEnter} 
       onMouseLeave={handleMouseLeave}
     >

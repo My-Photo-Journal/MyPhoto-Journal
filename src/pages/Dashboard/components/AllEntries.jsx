@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import EntryForm from './EntryForm'; // import EntryForm for editing
+import ViewEntry from './ViewEntry'; // import ViewEntry for viewing details
 
 const AllEntries = ({ isDarkTheme }) => {
   const [entries, setEntries] = useState([
@@ -6,6 +8,33 @@ const AllEntries = ({ isDarkTheme }) => {
     { id: 2, title: "Family Dinner", date: "2024-10-24", location: "Home", category: "Family" },
     { id: 3, title: "Beach Day", date: "2024-10-23", location: "Miami", category: "Outing" },
   ]);
+  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [isViewing, setIsViewing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Handle View
+  const handleView = (entry) => {
+    setSelectedEntry(entry);
+    setIsViewing(true);
+  };
+
+  // Handle Edit
+  const handleEdit = (entry) => {
+    setSelectedEntry(entry);
+    setIsEditing(true);
+  };
+
+  // Handle Delete
+  const handleDelete = (id) => {
+    setEntries(entries.filter((entry) => entry.id !== id));
+  };
+
+  // Handle Save after Editing
+  const handleSaveEdit = (updatedEntry) => {
+    setEntries(entries.map((entry) => (entry.id === updatedEntry.id ? updatedEntry : entry)));
+    setIsEditing(false);
+    setSelectedEntry(null);
+  };
 
   return (
     <div className={`p-8 ${isDarkTheme ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'} min-h-screen`}>
@@ -29,15 +58,30 @@ const AllEntries = ({ isDarkTheme }) => {
                 <td className="p-3">{entry.location}</td>
                 <td className="p-3">{entry.category}</td>
                 <td className="p-3">
-                  <button className="text-blue-500 hover:underline mr-2">View</button>
-                  <button className="text-yellow-500 hover:underline mr-2">Edit</button>
-                  <button className="text-red-500 hover:underline">Delete</button>
+                  <button className="text-blue-500 hover:underline mr-2" onClick={() => handleView(entry)}>View</button>
+                  <button className="text-yellow-500 hover:underline mr-2" onClick={() => handleEdit(entry)}>Edit</button>
+                  <button className="text-red-500 hover:underline" onClick={() => handleDelete(entry.id)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* View Entry Modal */}
+      {isViewing && selectedEntry && (
+        <ViewEntry entry={selectedEntry} onClose={() => setIsViewing(false)} />
+      )}
+
+      {/* Edit Entry Modal */}
+      {isEditing && selectedEntry && (
+        <EntryForm
+          isDarkTheme={isDarkTheme}
+          entry={selectedEntry}
+          onSave={handleSaveEdit}
+          onCancel={() => setIsEditing(false)}
+        />
+      )}
     </div>
   );
 };

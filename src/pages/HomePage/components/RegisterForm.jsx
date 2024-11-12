@@ -3,6 +3,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom';
 import RootLayout from '../../../layout/RootLayout';
+import { apiSignup } from '../../../services/auth';
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,25 +15,25 @@ const RegisterForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const firstname = formData.get("firstname");
-    const lastname = formData.get("lastname");
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
     const email = formData.get("email");
     const password = formData.get("password");
-    const confirmpassword = formData.get("confirmpassword");
+    // const confirmpassword = formData.get("confirmpassword");
 
-    if (password !== confirmpassword) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Password Mismatch',
-        text: 'Passwords do not match. Please try again.',
-      });
-      return;
-    }
+    // if (password !== confirmpassword) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Password Mismatch',
+    //     text: 'Passwords do not match. Please try again.',
+    //   });
+    //   return;
+    // }
 
     try {
       setLoading(true);
-      const payload = { firstname, lastname, email, password };
-      const response = await apiSignup(payload); // Ensure apiSignup is defined
+      const payload = { firstName, lastName, email, password };
+      const response = await apiSignup(payload); 
       console.log(response.data);
       Swal.fire({
         icon: 'success',
@@ -68,11 +69,11 @@ const RegisterForm = () => {
             <div className="space-y-4">
               {/* First Name */}
               <div>
-                <label htmlFor="firstname" className="block text-sm font-medium text-gray-900">First Name</label>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-900">First Name</label>
                 <input
                   type="text"
-                  id="firstname"
-                  name="firstname"
+                  id="firstName"
+                  name="firstName"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter first name"
                   required
@@ -81,12 +82,12 @@ const RegisterForm = () => {
 
               {/* Last Name */}
               <div>
-                <label htmlFor="lastname" className="block text-sm font-medium text-gray-900">Last Name</label>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-900 ">Last Name</label>
                 <input
                   type="text"
-                  id="lastname"
-                  name="lastname"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  id="lastName"
+                  name="lastName"
+                  className="mt-1 block w-full px-3 dark:bg-gray-400 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter last name"
                   required
                 />
@@ -128,7 +129,7 @@ const RegisterForm = () => {
               </div>
 
               {/* Confirm Password */}
-              <div>
+              {/* <div>
                 <label htmlFor="confirmpassword" className="block text-sm font-medium text-gray-900">Confirm Password</label>
                 <div className="mt-1 relative">
                   <input
@@ -147,7 +148,7 @@ const RegisterForm = () => {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <button

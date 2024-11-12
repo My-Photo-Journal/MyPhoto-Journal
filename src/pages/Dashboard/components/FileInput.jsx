@@ -7,7 +7,7 @@ const FileInput = ({ onChange, multiple = false }) => {
     const files = Array.from(e.target.files);
     const fileURLs = files.map((file) => URL.createObjectURL(file));
     setPhotoURLs(fileURLs);
-    onChange(e); // Call the passed onChange handler
+    onChange(e);
   };
 
   return (

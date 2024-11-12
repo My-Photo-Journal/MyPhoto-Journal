@@ -2,23 +2,68 @@ import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import RootLayout from '../../../layout/RootLayout';
+import Swal from 'sweetalert2';
+import { apiLogin } from '../../../services/auth';
 
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' }); // Initialize formData state
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await apiLogin({ email: formData.email, password: formData.password });
+
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.accessToken);
+
+        // Show success message with SweetAlert2
+        await Swal.fire({
+          icon: 'success',
+          title: 'Welcome Back!',
+          text: 'Login successful. Redirecting to dashboard...',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          backdrop: `
+            rgba(0,0,123,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `
+        });
+
+        navigate("/overview");
+      }
+    } catch (error) {
+      console.error(error);
+
+      // Show error message with SweetAlert2
+      await Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response?.data?.message || 'Login failed. Please check your credentials and try again.',
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#3B82F6',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Handle login logic here (e.g., API call)
-    console.log('Form submitted:', formData);
-    // After successful login, navigate to the overview page
-    navigate('/overview');
   };
 
   return (

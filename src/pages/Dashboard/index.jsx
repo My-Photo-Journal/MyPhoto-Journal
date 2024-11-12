@@ -27,7 +27,7 @@ const Dashboard = ({ setView, recentEntries, isDarkTheme, setIsDarkTheme }) => {
         {/* Welcome Message */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Welcome back, {user.name}!</h1>
-          <p className="text-gray-600">What would you like to capture today?</p>
+          <p className="text-gray-500">What would you like to capture today?</p>
         </div>
 
         {/* Quick Access Buttons */}
